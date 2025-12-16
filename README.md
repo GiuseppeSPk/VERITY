@@ -333,4 +333,11 @@ Built with:
 
 Made with ❤️ for AI Safety Research
 
+---
+
+**Created by [Giuseppe Spicchiarello](https://github.com/GiuseppeSPk)** 
+
+[![GitHub](https://img.shields.io/badge/GitHub-GiuseppeSPk-black?logo=github)](https://github.com/GiuseppeSPk)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Giuseppe%20Spicchiarello-blue?logo=linkedin)](https://www.linkedin.com/in/giuseppe-spicchiarello-b6b157352/)
+
 </div>
