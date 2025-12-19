@@ -20,7 +20,6 @@ from aegis.compliance.models import (
 )
 from aegis.judges.llm_judge import CampaignEvaluation, JudgeVerdict
 
-
 # OWASP LLM Top 10 2025 - Complete Vulnerability Database
 OWASP_VULNERABILITIES: dict[OWASPCategory, OWASPVulnerability] = {
     OWASPCategory.LLM01: OWASPVulnerability(
@@ -413,7 +412,7 @@ ATTACK_TO_OWASP_MAPPING: dict[str, OWASPCategory] = {
     "encoding": OWASPCategory.LLM01,
     "splitting": OWASPCategory.LLM01,
     "recursive": OWASPCategory.LLM01,
-    
+
     # Jailbreak attacks -> LLM06 (Excessive Agency)
     "jailbreak": OWASPCategory.LLM06,
     "jailbreak_single": OWASPCategory.LLM06,
@@ -424,7 +423,7 @@ ATTACK_TO_OWASP_MAPPING: dict[str, OWASPCategory] = {
     "crescendo": OWASPCategory.LLM06,
     "tap": OWASPCategory.LLM06,
     "pair": OWASPCategory.LLM06,
-    
+
     # System prompt leakage -> LLM07
     "system_leak": OWASPCategory.LLM07,
     "leak": OWASPCategory.LLM07,
@@ -436,43 +435,43 @@ ATTACK_TO_OWASP_MAPPING: dict[str, OWASPCategory] = {
 
 class OWASPMapper:
     """Maps attack results to OWASP LLM Top 10 2025 categories."""
-    
+
     def __init__(self) -> None:
         """Initialize the OWASP mapper."""
         self.vulnerabilities = OWASP_VULNERABILITIES
         self.attack_mapping = ATTACK_TO_OWASP_MAPPING
-    
+
     def get_category_for_attack(self, attack_name: str) -> OWASPCategory | None:
         """Get the OWASP category for an attack name.
-        
+
         Args:
             attack_name: Name of the attack technique
-            
+
         Returns:
             OWASP category or None if not mapped
         """
         # Try exact match
         if attack_name.lower() in self.attack_mapping:
             return self.attack_mapping[attack_name.lower()]
-        
+
         # Try partial match
         for key, category in self.attack_mapping.items():
             if key in attack_name.lower() or attack_name.lower() in key:
                 return category
-        
+
         return None
-    
+
     def get_vulnerability_info(self, category: OWASPCategory) -> OWASPVulnerability:
         """Get detailed vulnerability information for a category.
-        
+
         Args:
             category: OWASP category
-            
+
         Returns:
             OWASPVulnerability with full details
         """
         return self.vulnerabilities[category]
-    
+
     def create_finding_from_evaluation(
         self,
         attack_name: str,
@@ -481,26 +480,26 @@ class OWASPMapper:
         target_response: str = "",
     ) -> ComplianceFinding | None:
         """Create a compliance finding from a judge evaluation.
-        
+
         Args:
             attack_name: Name of the attack
             verdict: Judge verdict
             attack_payload: The attack prompt used
             target_response: The target's response
-            
+
         Returns:
             ComplianceFinding or None if attack not successful
         """
         # Only create findings for successful attacks
         if verdict != JudgeVerdict.UNSAFE:
             return None
-        
+
         category = self.get_category_for_attack(attack_name)
         if not category:
             return None
-        
+
         vuln = self.get_vulnerability_info(category)
-        
+
         return ComplianceFinding(
             finding_id=f"OWASP-{uuid4().hex[:8].upper()}",
             title=f"{vuln.name} Vulnerability Detected",
@@ -514,29 +513,29 @@ class OWASPMapper:
             remediation=vuln.remediation,
             status=ComplianceStatus.NON_COMPLIANT,
         )
-    
+
     def generate_owasp_report(
         self,
         evaluation: CampaignEvaluation,
     ) -> dict[str, Any]:
         """Generate an OWASP compliance report from campaign evaluation.
-        
+
         Args:
             evaluation: Campaign evaluation results
-            
+
         Returns:
             OWASP compliance report dictionary
         """
         findings: list[ComplianceFinding] = []
         categories_tested: set[OWASPCategory] = set()
         categories_failed: set[OWASPCategory] = set()
-        
+
         for eval_result in evaluation.evaluations:
             # Track tested categories
             category = self.get_category_for_attack(eval_result.attack_name)
             if category:
                 categories_tested.add(category)
-            
+
             # Create finding for unsafe results
             if eval_result.verdict == JudgeVerdict.UNSAFE:
                 finding = self.create_finding_from_evaluation(
@@ -549,7 +548,7 @@ class OWASPMapper:
                     findings.append(finding)
                     if category:
                         categories_failed.add(category)
-        
+
         # Determine overall status
         if categories_failed:
             status = ComplianceStatus.NON_COMPLIANT
@@ -557,7 +556,7 @@ class OWASPMapper:
             status = ComplianceStatus.COMPLIANT
         else:
             status = ComplianceStatus.NOT_ASSESSED
-        
+
         return {
             "framework": "OWASP LLM Top 10 2025",
             "version": "2025.1",
@@ -575,21 +574,21 @@ class OWASPMapper:
             },
             "assessed_at": datetime.utcnow().isoformat(),
         }
-    
+
     def get_remediation_for_category(self, category: OWASPCategory) -> str:
         """Get remediation guidance for a category.
-        
+
         Args:
             category: OWASP category
-            
+
         Returns:
             Remediation guidance string
         """
         return self.vulnerabilities[category].remediation
-    
+
     def get_all_categories(self) -> list[dict[str, Any]]:
         """Get all OWASP categories with their details.
-        
+
         Returns:
             List of category information dictionaries
         """

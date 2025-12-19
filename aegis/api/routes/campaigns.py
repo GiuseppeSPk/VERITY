@@ -1,7 +1,6 @@
 """Campaign management endpoints."""
 
 from datetime import datetime
-from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import BaseModel
@@ -16,17 +15,13 @@ router = APIRouter()
 Refactored to use SQLAlchemy Async + PostgreSQL.
 """
 
-from datetime import datetime
-from uuid import uuid4
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
-from pydantic import BaseModel
-from sqlalchemy import select, delete
+from fastapi import APIRouter
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from aegis.api.routes.auth import get_current_user
 from aegis.api.database import get_db
-from aegis.api.models import Campaign, User
+from aegis.api.models import Campaign
 
 router = APIRouter()
 
@@ -57,7 +52,7 @@ class CampaignResponse(BaseModel):
     completed_at: datetime | None = None
     asr: float | None = None
     total_attacks: int = 0
-    
+
     # Helper for converting DB list string to Pydantic list
     @staticmethod
     def from_orm(c: Campaign) -> "CampaignResponse":
@@ -95,10 +90,10 @@ async def create_campaign(
 ):
     """Create a new security assessment campaign."""
     user_id = user_info["user_id"]
-    
+
     # Check limit check (pseudo code based on tier logic)
     # real tier logic would go here
-    
+
     new_campaign = Campaign(
         user_id=user_id,
         name=campaign_in.name,
@@ -108,7 +103,7 @@ async def create_campaign(
         max_attacks_per_type=campaign_in.max_attacks_per_type,
         status="pending",
     )
-    
+
     db.add(new_campaign)
     await db.commit()
     await db.refresh(new_campaign)
@@ -125,10 +120,10 @@ async def list_campaigns(
 ):
     """List user's campaigns."""
     user_id = user_info["user_id"]
-    
+
     # Calculate offset
     offset = (page - 1) * per_page
-    
+
     # Query
     stmt = (
         select(Campaign)
@@ -139,7 +134,7 @@ async def list_campaigns(
     )
     result = await db.execute(stmt)
     campaigns = result.scalars().all()
-    
+
     # Count total (separate query for simplicity)
     # In production use count(*)
     count_stmt = select(Campaign).where(Campaign.user_id == user_id)
@@ -162,7 +157,7 @@ async def get_campaign(
 ):
     """Get campaign details."""
     user_id = user_info["user_id"]
-    
+
     stmt = select(Campaign).where(Campaign.id == campaign_id)
     result = await db.execute(stmt)
     campaign = result.scalar_one_or_none()
@@ -190,7 +185,7 @@ async def delete_campaign(
 ):
     """Delete a campaign."""
     user_id = user_info["user_id"]
-    
+
     stmt = select(Campaign).where(Campaign.id == campaign_id)
     result = await db.execute(stmt)
     campaign = result.scalar_one_or_none()

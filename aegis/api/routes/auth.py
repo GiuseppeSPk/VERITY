@@ -5,20 +5,19 @@ Using bcrypt for secure password hashing.
 Running on SQLAlchemy Async + PostgreSQL (via AsyncPG).
 """
 
+import hashlib
+import secrets
 from datetime import datetime, timedelta
-from typing import Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Header, status
+from fastapi import APIRouter, Depends, Header, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from passlib.context import CryptContext
 from pydantic import BaseModel, EmailStr
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-import secrets
-import hashlib
 
 from aegis.api.database import get_db
-from aegis.api.models import User, APIKey, generate_uuid
+from aegis.api.models import APIKey, User
 
 # Password hashing context - using pbkdf2_sha256 for compatibility
 pwd_context = CryptContext(schemes=["pbkdf2_sha256"], deprecated="auto")
@@ -115,20 +114,20 @@ _active_tokens: dict = {}
 
 
 async def get_current_user(
-    token: Optional[str] = Depends(oauth2_scheme),
-    x_api_key: Optional[str] = Header(None, alias="X-API-Key"),
+    token: str | None = Depends(oauth2_scheme),
+    x_api_key: str | None = Header(None, alias="X-API-Key"),
     db: AsyncSession = Depends(get_db),
 ) -> dict:
     """Get current user from JWT or API key.
-    
+
     Returns:
         dict: {"user_id": str, "auth_method": str}
     """
-    
+
     # 1. API Key Authentication
     if x_api_key:
         key_hash = hashlib.sha256(x_api_key.encode()).hexdigest()
-        
+
         stmt = select(APIKey).where(
             APIKey.key_hash == key_hash,
             APIKey.is_active == True,
@@ -136,13 +135,13 @@ async def get_current_user(
         )
         result = await db.execute(stmt)
         api_key_obj = result.scalar_one_or_none()
-        
+
         if api_key_obj:
             # Update last used
             api_key_obj.last_used = datetime.utcnow()
             await db.commit()
             return {"user_id": api_key_obj.user_id, "auth_method": "api_key"}
-            
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired API key",
@@ -157,7 +156,7 @@ async def get_current_user(
             else:
                 # Expired
                 del _active_tokens[token]
-        
+
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or expired token",
@@ -224,7 +223,7 @@ async def login(
     # Generate token
     access_token = generate_token()
     expires_at = datetime.utcnow() + timedelta(minutes=15)
-    
+
     # Store in memory (Redis refactor planned)
     _active_tokens[access_token] = {
         "user_id": user.id,

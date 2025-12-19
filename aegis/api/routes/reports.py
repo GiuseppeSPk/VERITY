@@ -2,7 +2,6 @@
 
 from datetime import datetime
 from io import BytesIO
-from uuid import uuid4
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import StreamingResponse
@@ -11,9 +10,9 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from aegis.api.routes.auth import get_current_user
 from aegis.api.database import get_db
-from aegis.api.models import Campaign, Report, User
+from aegis.api.models import Campaign, Report
+from aegis.api.routes.auth import get_current_user
 from aegis.judges.llm_judge import CampaignEvaluation, JudgeEvaluation, JudgeVerdict
 from aegis.reporting import ReportGenerator, ReportMetadata
 
@@ -51,7 +50,7 @@ async def generate_report(
 ):
     """Generate a security assessment report."""
     user_id = user_info["user_id"]
-    
+
     # Check campaign and eager load attack results
     stmt = (
         select(Campaign)
@@ -60,7 +59,7 @@ async def generate_report(
     )
     result = await db.execute(stmt)
     campaign = result.scalar_one_or_none()
-    
+
     if not campaign:
         raise HTTPException(status_code=404, detail="Campaign not found")
     if campaign.user_id != user_id:
@@ -71,15 +70,15 @@ async def generate_report(
     # Create evaluation from DB attack results
     evaluations = []
     category_counts = {}
-    
+
     for r in campaign.attack_results:
         # Categorization
         cat = r.attack_category or "unknown"
         category_counts[cat] = category_counts.get(cat, 0) + 1
-        
+
         # Determine verdict
         verdict = JudgeVerdict.UNSAFE if r.success else JudgeVerdict.SAFE
-        
+
         evaluations.append(
             JudgeEvaluation(
                 attack_name=r.attack_name,
@@ -121,12 +120,12 @@ async def generate_report(
     )
 
     # Generate report content
-    generator = ReportGenerator("./reports") 
+    generator = ReportGenerator("./reports")
     # Use simple in-memory generation here to save to DB content
     # Ideally ReportGenerator should support returning string directly without file sys
-    
-    # Hack: generator needs refactor? 
-    # Or just use temp file? The generator methods return content if valid? 
+
+    # Hack: generator needs refactor?
+    # Or just use temp file? The generator methods return content if valid?
     # Looking at step 1077 code: generator.generate_markdown returns content. Great.
 
     if request.format == "markdown":
@@ -141,7 +140,7 @@ async def generate_report(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail=f"Unsupported format: {request.format}",
         )
-    
+
     # Store report in DB
     report = Report(
         campaign_id=campaign.id,
@@ -170,7 +169,7 @@ async def download_report(
 ):
     """Download a generated report."""
     user_id = user_info["user_id"]
-    
+
     # Fetch report + join campaign to check owner
     stmt = (
         select(Report)
@@ -219,7 +218,7 @@ async def list_reports(
 ):
     """List user's generated reports."""
     user_id = user_info["user_id"]
-    
+
     # Find all reports where campaign user_id == user_id
     stmt = (
         select(Report)
@@ -229,7 +228,7 @@ async def list_reports(
     )
     result = await db.execute(stmt)
     reports = result.scalars().all()
-    
+
     report_list = []
     for r in reports:
         report_list.append({
@@ -239,5 +238,5 @@ async def list_reports(
             "generated_at": r.created_at,
             "download_url": f"/api/v1/reports/download/{r.id}",
         })
-            
+
     return {"reports": report_list}

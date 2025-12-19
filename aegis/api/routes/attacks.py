@@ -9,22 +9,19 @@ from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
 from pydantic import BaseModel
 
 from aegis.api.routes.auth import get_current_user
+
 """Attack execution endpoints.
 
 Refactored to use SQLAlchemy Async + PostgreSQL.
 """
 
-from datetime import datetime
 
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
-from pydantic import BaseModel
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import selectinload
 
-from aegis.api.routes.auth import get_current_user
 from aegis.api.database import get_db, get_db_context
-from aegis.api.models import Campaign, AttackResult, User
+from aegis.api.models import AttackResult, Campaign
 
 router = APIRouter()
 
@@ -88,13 +85,13 @@ async def run_attacks_background(
     """Run attacks in background using DB context."""
     from aegis.core import create_provider
     from aegis.red_team import get_all_agents
-    
+
     async with get_db_context() as db:
         # Fetch campaign
         stmt = select(Campaign).where(Campaign.id == campaign_id)
         res = await db.execute(stmt)
         campaign = res.scalar_one_or_none()
-        
+
         if not campaign:
             return
 
@@ -102,7 +99,7 @@ async def run_attacks_background(
         campaign.status = "running"
         campaign.started_at = datetime.utcnow()
         await db.commit()
-    
+
         try:
             # Create provider
             # Note: Assuming create_provider handles env vars or we fetch api keys here
@@ -126,7 +123,7 @@ async def run_attacks_background(
                     provider=provider,
                     max_attacks=max_per_type,
                 )
-                
+
                 # Save results to DB immediately (or batch)
                 for r in results:
                     db_result = AttackResult(
@@ -143,10 +140,10 @@ async def run_attacks_background(
                     )
                     db.add(db_result)
                     all_results.append(r)
-                
+
                 # Commit batch
                 await db.commit()
-                
+
                 # Update campaign stats incrementally
                 campaign.total_attacks += len(results)
                 campaign.successful_attacks += sum(1 for r in results if r.success)
@@ -155,14 +152,14 @@ async def run_attacks_background(
             # Finalize campaign
             campaign.status = "completed"
             campaign.completed_at = datetime.utcnow()
-            
+
             total = campaign.total_attacks
             success = campaign.successful_attacks
             campaign.asr = success / total if total > 0 else 0.0
-            
+
             await db.commit()
 
-        except Exception as e:
+        except Exception:
             await db.rollback() # Rollback current transaction if active
             # Re-fetch or use session to set failed
             # Since we rollbacked, campaign object might be detached or stale?
@@ -185,7 +182,7 @@ async def execute_attacks(
 ):
     """Execute attacks on a campaign (async)."""
     user_id = user_info["user_id"]
-    
+
     stmt = select(Campaign).where(Campaign.id == request.campaign_id)
     result = await db.execute(stmt)
     campaign = result.scalar_one_or_none()
@@ -232,7 +229,7 @@ async def get_attack_status(
 ):
     """Get attack execution status."""
     user_id = user_info["user_id"]
-    
+
     stmt = select(Campaign).where(Campaign.id == campaign_id)
     result = await db.execute(stmt)
     campaign = result.scalar_one_or_none()
@@ -263,7 +260,7 @@ async def get_attack_results(
 ):
     """Get attack results for a campaign."""
     user_id = user_info["user_id"]
-    
+
     # Eager load results
     stmt = (
         select(Campaign)

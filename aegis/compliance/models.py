@@ -12,11 +12,11 @@ from typing import Any
 
 class OWASPCategory(str, Enum):
     """OWASP LLM Top 10 2025 Categories.
-    
+
     Reference: https://owasp.org/www-project-top-10-for-large-language-model-applications/
     Version: 2025.1
     """
-    
+
     LLM01 = "LLM01:2025 - Prompt Injection"
     LLM02 = "LLM02:2025 - Sensitive Information Disclosure"
     LLM03 = "LLM03:2025 - Supply Chain Vulnerabilities"
@@ -31,7 +31,7 @@ class OWASPCategory(str, Enum):
 
 class Severity(str, Enum):
     """Severity levels for compliance findings."""
-    
+
     CRITICAL = "critical"
     HIGH = "high"
     MEDIUM = "medium"
@@ -41,7 +41,7 @@ class Severity(str, Enum):
 
 class ComplianceStatus(str, Enum):
     """Overall compliance status."""
-    
+
     COMPLIANT = "compliant"
     PARTIALLY_COMPLIANT = "partially_compliant"
     NON_COMPLIANT = "non_compliant"
@@ -51,7 +51,7 @@ class ComplianceStatus(str, Enum):
 @dataclass
 class OWASPVulnerability:
     """Detailed OWASP vulnerability information."""
-    
+
     category: OWASPCategory
     name: str
     description: str
@@ -67,7 +67,7 @@ class OWASPVulnerability:
 @dataclass
 class EUAIActArticle:
     """EU AI Act article reference."""
-    
+
     article_number: str
     title: str
     description: str
@@ -78,7 +78,7 @@ class EUAIActArticle:
 @dataclass
 class ComplianceFinding:
     """A single compliance finding from an assessment."""
-    
+
     finding_id: str
     title: str
     description: str
@@ -92,7 +92,7 @@ class ComplianceFinding:
     status: ComplianceStatus = ComplianceStatus.NOT_ASSESSED
     detected_at: datetime = field(default_factory=datetime.utcnow)
     metadata: dict[str, Any] = field(default_factory=dict)
-    
+
     def to_dict(self) -> dict[str, Any]:
         """Convert finding to dictionary."""
         return {
@@ -115,38 +115,38 @@ class ComplianceFinding:
 @dataclass
 class ComplianceReport:
     """Aggregated compliance report."""
-    
+
     report_id: str
     target_system: str
     target_model: str
     assessment_date: datetime
-    
+
     # Overall status
     overall_status: ComplianceStatus = ComplianceStatus.NOT_ASSESSED
-    
+
     # OWASP compliance
     owasp_status: ComplianceStatus = ComplianceStatus.NOT_ASSESSED
     owasp_findings: list[ComplianceFinding] = field(default_factory=list)
     owasp_categories_tested: list[OWASPCategory] = field(default_factory=list)
     owasp_categories_failed: list[OWASPCategory] = field(default_factory=list)
-    
+
     # EU AI Act compliance
     eu_ai_act_status: ComplianceStatus = ComplianceStatus.NOT_ASSESSED
     eu_ai_act_findings: list[ComplianceFinding] = field(default_factory=list)
     eu_ai_act_articles_checked: list[str] = field(default_factory=list)
-    
+
     # Summary statistics
     total_findings: int = 0
     critical_findings: int = 0
     high_findings: int = 0
     medium_findings: int = 0
     low_findings: int = 0
-    
+
     # Metadata
     assessor: str = "AEGIS Automated Assessment"
     version: str = "1.0"
     metadata: dict[str, Any] = field(default_factory=dict)
-    
+
     def calculate_statistics(self) -> None:
         """Calculate summary statistics from findings."""
         all_findings = self.owasp_findings + self.eu_ai_act_findings
@@ -155,7 +155,7 @@ class ComplianceReport:
         self.high_findings = sum(1 for f in all_findings if f.severity == Severity.HIGH)
         self.medium_findings = sum(1 for f in all_findings if f.severity == Severity.MEDIUM)
         self.low_findings = sum(1 for f in all_findings if f.severity == Severity.LOW)
-        
+
         # Determine overall status
         if self.critical_findings > 0 or self.high_findings > 0:
             self.overall_status = ComplianceStatus.NON_COMPLIANT
@@ -165,7 +165,7 @@ class ComplianceReport:
             self.overall_status = ComplianceStatus.COMPLIANT
         else:
             self.overall_status = ComplianceStatus.PARTIALLY_COMPLIANT
-    
+
     def to_dict(self) -> dict[str, Any]:
         """Convert report to dictionary."""
         return {
