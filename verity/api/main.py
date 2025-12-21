@@ -14,7 +14,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from VERITY import __version__
+from verity import __version__
 from verity.api.routes import attacks, auth, campaigns, health, reports
 
 

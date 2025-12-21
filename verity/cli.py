@@ -6,7 +6,7 @@ import typer
 from rich.console import Console
 from rich.table import Table
 
-from VERITY import __version__
+from verity import __version__
 from verity.config import get_settings
 from verity.core import create_provider
 

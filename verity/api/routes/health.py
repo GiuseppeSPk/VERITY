@@ -2,7 +2,7 @@
 
 from fastapi import APIRouter
 
-from VERITY import __version__
+from verity import __version__
 
 router = APIRouter()
 
