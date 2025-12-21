@@ -33,7 +33,7 @@ class TestReportMetadata:
         assert metadata.target_system == "ollama"
         assert metadata.target_model == "llama3"
         assert metadata.assessment_date == now
-        assert metadata.assessor == "AEGIS Automated Assessment"
+        assert metadata.assessor == "VERITY Automated Assessment"
         assert metadata.report_version == "1.0"
         assert metadata.classification == "CONFIDENTIAL"
 
@@ -105,7 +105,7 @@ class TestReportGenerator:
         """Test generating markdown report."""
         report = self.generator.generate_markdown(self.campaign, self.metadata)
 
-        assert "# 🛡️ AEGIS Security Assessment Report" in report
+        assert "# 🛡️ VERITY Security Assessment Report" in report
         assert "Executive Summary" in report
         assert "OWASP LLM Top 10" in report
         assert "EU AI Act Compliance" in report
@@ -141,7 +141,7 @@ class TestReportGenerator:
         assert filepath.stat().st_size > 0
 
         content = filepath.read_text(encoding="utf-8")
-        assert "AEGIS" in content
+        assert "VERITY" in content
 
     def test_save_json_report(self):
         """Test saving JSON report to file."""
