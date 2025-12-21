@@ -1,6 +1,6 @@
 # Installation Guide
 
-This guide covers the complete installation and configuration of AEGIS.
+This guide covers the complete installation and configuration of VERITY.
 
 ## Prerequisites
 
@@ -25,8 +25,8 @@ This guide covers the complete installation and configuration of AEGIS.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/aegis.git
-cd aegis
+git clone https://github.com/yourusername/VERITY.git
+cd VERITY
 ```
 
 ### 2. Create Virtual Environment
@@ -41,7 +41,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-### 3. Install AEGIS
+### 3. Install VERITY
 
 ```bash
 # Standard installation
@@ -134,23 +134,23 @@ JUDGE_MODEL=gpt-4o-mini
 
 ```bash
 # Show version
-aegis --version
+VERITY --version
 
 # List providers
-aegis providers list
+VERITY providers list
 
 # Test provider connectivity
-aegis providers test --provider ollama
-aegis providers test --provider openai
+VERITY providers test --provider ollama
+VERITY providers test --provider openai
 ```
 
 ### Check Python Import
 
 ```python
-import aegis
-print(aegis.__version__)
+import VERITY
+print(VERITY.__version__)
 
-from aegis.red_team import get_all_agents
+from VERITY.red_team import get_all_agents
 agents = get_all_agents()
 print(f"Loaded {len(agents)} attack agents")
 ```
@@ -162,14 +162,14 @@ print(f"Loaded {len(agents)} attack agents")
 pytest tests/ -v
 
 # Run with coverage
-pytest --cov=aegis --cov-report=html
+pytest --cov=VERITY --cov-report=html
 ```
 
 ## Troubleshooting
 
 ### Common Issues
 
-#### "Module not found: aegis"
+#### "Module not found: VERITY"
 
 Make sure you installed in editable mode:
 ```bash
@@ -196,7 +196,7 @@ pip install -e .
 
 #### "Python version not supported"
 
-AEGIS requires Python 3.12+. Check your version:
+VERITY requires Python 3.12+. Check your version:
 ```bash
 python --version
 ```
@@ -206,7 +206,7 @@ python --version
 If you encounter issues:
 
 1. Check the [FAQ](./FAQ.md) (coming soon)
-2. Search [GitHub Issues](https://github.com/yourusername/aegis/issues)
+2. Search [GitHub Issues](https://github.com/yourusername/VERITY/issues)
 3. Open a new issue with:
    - Python version
    - Operating system
@@ -215,6 +215,6 @@ If you encounter issues:
 
 ## Next Steps
 
-- [Usage Guide](./USAGE.md) - Learn how to use AEGIS
+- [Usage Guide](./USAGE.md) - Learn how to use VERITY
 - [API Reference](./API.md) - REST API documentation
 - [Attack Catalog](./ATTACKS.md) - Available attack techniques

@@ -91,3 +91,16 @@ logs/
 # Build artifacts
 *.manifest
 *.spec
+
+# ===========================================
+# VERITY PREMIUM PAYLOADS (PROPRIETARY)
+# These files contain commercial IP
+# ===========================================
+.private/
+**/.private/
+**/payloads/.private/
+verity/red_team/attacks/.private/
+
+# Premium payload backups
+*.premium.py
+*.proprietary.py

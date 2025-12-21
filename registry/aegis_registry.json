@@ -1,0 +1,90 @@
+{
+  "version": "1.0.0",
+  "created_at": "2025-12-21T16:00:06.975400",
+  "entries": [
+    {
+      "certificate_id": "a0a97e72-97e9-4d82-9200-4d3265e95eec",
+      "target_system": "CustomerBot v1.0",
+      "target_model": "gpt-4",
+      "assessment_date": "2025-12-21T17:00:06.974840",
+      "asr": 0.2,
+      "total_attacks": 10,
+      "content_hash": "9ee3c06768fc79f8968da9cedf64059ddc1d5465e16370a8f3ad34def6789913",
+      "verification_code": "AEGIS-CERT-A0A97E72-9EE3C06768FC79F8",
+      "registry_timestamp": "2025-12-21T16:00:06.977725",
+      "status": "active"
+    },
+    {
+      "certificate_id": "aadbd883-abaf-4ef0-bd1a-fd4df4470b90",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T17:05:26.696059",
+      "asr": 0.0,
+      "total_attacks": 13,
+      "content_hash": "faaf392e09fe8ef328e82d4acddaf20f92245273af7d2f2c35c67ffe7135b1cb",
+      "verification_code": "AEGIS-CERT-AADBD883-FAAF392E09FE8EF3",
+      "registry_timestamp": "2025-12-21T16:05:26.700662",
+      "status": "active"
+    },
+    {
+      "certificate_id": "940cb548-7066-488e-909b-9520adbb5360",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T18:49:58.810043",
+      "asr": 0.0,
+      "total_attacks": 13,
+      "content_hash": "5d44ad804463dee32bf9541140f159708acf6c789c0759f73a3ecad5fa77e5b5",
+      "verification_code": "AEGIS-CERT-940CB548-5D44AD804463DEE3",
+      "registry_timestamp": "2025-12-21T17:49:58.812292",
+      "status": "active"
+    },
+    {
+      "certificate_id": "7abae1ce-4571-4851-a5ec-ce67aace4c5c",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T21:11:28.560214",
+      "asr": 0.0,
+      "total_attacks": 13,
+      "content_hash": "717ef7fda016266bcf36b05871c395d58d1d93340c091291d922911312fab73c",
+      "verification_code": "AEGIS-CERT-7ABAE1CE-717EF7FDA016266B",
+      "registry_timestamp": "2025-12-21T20:11:28.562448",
+      "status": "active"
+    },
+    {
+      "certificate_id": "685f8d6d-74a0-40f9-b14d-eb6360657822",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T21:17:02.182498",
+      "asr": 0.0,
+      "total_attacks": 13,
+      "content_hash": "b743e4bbc98ed07de49492d4406c8f02b0aa197dfc0c6987c6c375e245045c17",
+      "verification_code": "AEGIS-CERT-685F8D6D-B743E4BBC98ED07D",
+      "registry_timestamp": "2025-12-21T20:17:02.186216",
+      "status": "active"
+    },
+    {
+      "certificate_id": "48ae8fa0-5f8f-4b6e-a3db-1b56040c937a",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T21:27:56.399808",
+      "asr": 0.23076923076923078,
+      "total_attacks": 13,
+      "content_hash": "8a55c45f7225477e66af9013ece56a5f906fe9e150ed3eb76c2ebeabd183fa17",
+      "verification_code": "AEGIS-CERT-48AE8FA0-8A55C45F7225477E",
+      "registry_timestamp": "2025-12-21T20:27:56.403093",
+      "status": "active"
+    },
+    {
+      "certificate_id": "bf57248a-4c64-40d6-b1c7-06eaadcaf72a",
+      "target_system": "ollama",
+      "target_model": "llama3",
+      "assessment_date": "2025-12-21T21:42:04.076403",
+      "asr": 0.23076923076923078,
+      "total_attacks": 13,
+      "content_hash": "dc640f7e5eb96d8d490a608e0766ac9a1a1d127a7c2a7364dc73e33da2e892ab",
+      "verification_code": "AEGIS-CERT-BF57248A-DC640F7E5EB96D8D",
+      "registry_timestamp": "2025-12-21T20:42:04.080308",
+      "status": "active"
+    }
+  ]
+}

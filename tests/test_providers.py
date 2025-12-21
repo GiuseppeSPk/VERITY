@@ -2,7 +2,7 @@
 
 import pytest
 
-from aegis.core.providers import LLMResponse, OllamaProvider, OpenAIProvider
+from verity.core.providers import LLMResponse, OllamaProvider, OpenAIProvider
 
 
 class TestLLMResponse:

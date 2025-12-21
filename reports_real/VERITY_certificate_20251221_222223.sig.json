@@ -1,0 +1,14 @@
+{
+  "certificate_id": "9938131b-404a-4ab6-9569-f43f4423e805",
+  "content_hash": "1478bbed96a964d9924244dd4f763b3362d7fccf8cf6607e3278aa01d7344662",
+  "timestamp": "2025-12-21T21:22:23.774218",
+  "VERITY_version": "1.0.0",
+  "signature_version": "1",
+  "metadata": {
+    "target_system": "ollama",
+    "target_model": "llama3",
+    "assessment_date": "2025-12-21T22:22:23.772878",
+    "asr": 0.15384615384615385,
+    "total_attacks": 13
+  }
+}

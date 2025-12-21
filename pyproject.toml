@@ -1,14 +1,14 @@
 [project]
-name = "aegis"
+name = "verity"
 version = "0.1.0"
-description = "Advanced Ethical Guardian & Intelligence System - Multi-Agent LLM Red/Blue Teaming Platform"
+description = "VERITY - Verification of Ethics, Resilience & Integrity for Trusted AI"
 readme = "README.md"
 requires-python = ">=3.12"
 license = { text = "MIT" }
 authors = [
     { name = "Giuseppe Spicchiarello" }
 ]
-keywords = ["llm", "red-teaming", "security", "ai-safety", "jailbreak", "prompt-injection"]
+keywords = ["llm", "red-teaming", "security", "ai-safety", "jailbreak", "prompt-injection", "certification"]
 
 dependencies = [
     "fastapi>=0.115.0",
@@ -51,7 +51,7 @@ marl = [
 ]
 
 [project.scripts]
-aegis = "aegis.cli:app"
+verity = "verity.cli:app"
 
 [build-system]
 requires = ["hatchling"]

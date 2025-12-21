@@ -3,14 +3,14 @@
 import pytest
 from unittest.mock import AsyncMock, MagicMock
 
-from aegis.judges.llm_judge import (
+from verity.judges.llm_judge import (
     LLMJudge,
     JudgeVerdict,
     JudgeEvaluation,
     CampaignEvaluation,
     JUDGE_SYSTEM_PROMPT,
 )
-from aegis.red_team.base_agent import AttackResult, AttackCategory, AttackSeverity
+from verity.red_team.base_agent import AttackResult, AttackCategory, AttackSeverity
 
 
 class TestJudgeVerdict:

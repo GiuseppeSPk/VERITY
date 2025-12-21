@@ -1,6 +1,6 @@
 # Attack Catalog
 
-Complete catalog of attack techniques implemented in AEGIS.
+Complete catalog of attack techniques implemented in VERITY.
 
 ## Overview
 
@@ -343,7 +343,7 @@ Uses encoding to evade detection.
 
 ## OWASP LLM Top 10 2025 Mapping
 
-| AEGIS Attack | OWASP Category |
+| VERITY Attack | OWASP Category |
 |--------------|----------------|
 | Prompt Injection | LLM01:2025 |
 | Sensitive Info Disclosure | LLM02:2025 |
@@ -354,10 +354,10 @@ Uses encoding to evade detection.
 
 ## Adding Custom Attacks
 
-You can extend AEGIS with custom attack payloads:
+You can extend VERITY with custom attack payloads:
 
 ```python
-from aegis.red_team.base_agent import BaseAttackAgent, AttackResult, AttackCategory
+from VERITY.red_team.base_agent import BaseAttackAgent, AttackResult, AttackCategory
 
 class CustomAttackAgent(BaseAttackAgent):
     name = "custom_attack"

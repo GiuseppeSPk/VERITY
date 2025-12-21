@@ -1,12 +1,12 @@
 # System Architecture
 
-Technical architecture documentation for AEGIS.
+Technical architecture documentation for VERITY.
 
 ## High-Level Architecture
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────┐
-│                           AEGIS Platform                                 │
+│                           VERITY Platform                                 │
 ├─────────────────────────────────────────────────────────────────────────┤
 │                                                                         │
 │  ┌──────────────┐    ┌──────────────┐    ┌──────────────────────────┐  │
@@ -65,13 +65,13 @@ Technical architecture documentation for AEGIS.
 
 ### 1. Entry Points
 
-#### CLI (`aegis/cli.py`)
+#### CLI (`VERITY/cli.py`)
 
 - Built with [Typer](https://typer.tiangolo.com/)
 - Commands: `providers`, `attack`, `audit`
 - Rich console output with progress indicators
 
-#### REST API (`aegis/api/`)
+#### REST API (`VERITY/api/`)
 
 - Built with [FastAPI](https://fastapi.tiangolo.com/)
 - JWT + API Key authentication
@@ -79,13 +79,13 @@ Technical architecture documentation for AEGIS.
 
 #### Python SDK
 
-- Direct import from `aegis` package
+- Direct import from `VERITY` package
 - Async-first design
 - Type hints throughout
 
 ### 2. Core Components
 
-#### Red Team Orchestrator (`aegis/red_team/orchestrator.py`)
+#### Red Team Orchestrator (`VERITY/red_team/orchestrator.py`)
 
 ```python
 class RedTeamOrchestrator:
@@ -106,7 +106,7 @@ class RedTeamOrchestrator:
     ) -> CampaignResult
 ```
 
-#### Attack Agents (`aegis/red_team/attacks/`)
+#### Attack Agents (`VERITY/red_team/attacks/`)
 
 Base class interface:
 
@@ -137,7 +137,7 @@ class BaseAttackAgent(ABC):
 
 ### 3. LLM Providers
 
-#### Provider Interface (`aegis/core/providers/base.py`)
+#### Provider Interface (`VERITY/core/providers/base.py`)
 
 ```python
 class BaseLLMProvider(ABC):
@@ -161,7 +161,7 @@ class BaseLLMProvider(ABC):
     ) -> str
 ```
 
-#### Provider Factory (`aegis/core/providers/factory.py`)
+#### Provider Factory (`VERITY/core/providers/factory.py`)
 
 ```python
 def create_provider(
@@ -173,7 +173,7 @@ def create_provider(
 def create_judge_provider(**kwargs) -> BaseLLMProvider
 ```
 
-### 4. LLM-as-Judge (`aegis/judges/llm_judge.py`)
+### 4. LLM-as-Judge (`VERITY/judges/llm_judge.py`)
 
 SOTA 2025 implementation following best practices:
 
@@ -207,7 +207,7 @@ class LLMJudge:
 - **Harm Score** (1-10)
 - **Confidence** per evaluation
 
-### 5. Compliance Module (`aegis/compliance/`)
+### 5. Compliance Module (`VERITY/compliance/`)
 
 #### OWASP Mapper (`owasp.py`)
 
@@ -238,7 +238,7 @@ class EUAIActChecker:
     def generate_compliance_report(evaluation) -> ComplianceReport
 ```
 
-### 6. Report Generator (`aegis/reporting/report_generator.py`)
+### 6. Report Generator (`VERITY/reporting/report_generator.py`)
 
 ```python
 class ReportGenerator:
@@ -275,7 +275,7 @@ sequenceDiagram
     participant J as LLM-as-Judge
     participant R as Report Generator
     
-    U->>C: aegis audit --target ollama
+    U->>C: VERITY audit --target ollama
     C->>O: run_campaign()
     
     loop For each Agent
@@ -326,7 +326,7 @@ sequenceDiagram
 
 ## Configuration
 
-### Settings (`aegis/config/settings.py`)
+### Settings (`VERITY/config/settings.py`)
 
 ```python
 class Settings(BaseSettings):
@@ -345,7 +345,7 @@ class Settings(BaseSettings):
     judge_model: str = "gpt-4o-mini"
     
     # Database
-    database_url: str = "sqlite+aiosqlite:///./aegis.db"
+    database_url: str = "sqlite+aiosqlite:///./VERITY.db"
 ```
 
 ### Environment Variables
@@ -414,7 +414,7 @@ CREATE TABLE evaluations (
 ### Custom Attack Agents
 
 ```python
-from aegis.red_team.base_agent import BaseAttackAgent
+from VERITY.red_team.base_agent import BaseAttackAgent
 
 class MyCustomAgent(BaseAttackAgent):
     name = "my_custom"
@@ -428,7 +428,7 @@ class MyCustomAgent(BaseAttackAgent):
 ### Custom Providers
 
 ```python
-from aegis.core.providers.base import BaseLLMProvider
+from VERITY.core.providers.base import BaseLLMProvider
 
 class MyCustomProvider(BaseLLMProvider):
     provider_name = "custom"
@@ -441,7 +441,7 @@ class MyCustomProvider(BaseLLMProvider):
 ### Custom Compliance Checks
 
 ```python
-from aegis.compliance.models import ComplianceFinding
+from VERITY.compliance.models import ComplianceFinding
 
 def custom_compliance_check(evaluation):
     findings = []

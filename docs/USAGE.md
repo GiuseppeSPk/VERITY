@@ -1,6 +1,6 @@
 # Usage Guide
 
-This guide covers the three main ways to use AEGIS: CLI, REST API, and Python SDK.
+This guide covers the three main ways to use VERITY: CLI, REST API, and Python SDK.
 
 ## Table of Contents
 
@@ -14,92 +14,92 @@ This guide covers the three main ways to use AEGIS: CLI, REST API, and Python SD
 
 ## Command Line Interface (CLI)
 
-The AEGIS CLI provides quick access to all features.
+The VERITY CLI provides quick access to all features.
 
 ### Basic Commands
 
 ```bash
 # Show help
-aegis --help
+VERITY --help
 
 # Show version
-aegis --version
+VERITY --version
 ```
 
 ### Provider Management
 
 ```bash
 # List all configured providers
-aegis providers list
+VERITY providers list
 
 # Test a specific provider
-aegis providers test --provider ollama
-aegis providers test --provider openai --model gpt-4o-mini
+VERITY providers test --provider ollama
+VERITY providers test --provider openai --model gpt-4o-mini
 ```
 
 ### Running Attacks
 
 ```bash
 # Run prompt injection attacks
-aegis attack --type injection --max 5
+VERITY attack --type injection --max 5
 
 # Run jailbreak attacks
-aegis attack --type jailbreak --max 10
+VERITY attack --type jailbreak --max 10
 
 # Run system prompt leakage attacks
-aegis attack --type leak --max 5
+VERITY attack --type leak --max 5
 
 # Run multi-turn attacks (Crescendo/TAP/PAIR)
-aegis attack --type jailbreak_multi --max 3
+VERITY attack --type jailbreak_multi --max 3
 
 # Specify target provider and model
-aegis attack --type injection --target ollama --model llama3.2 --max 10
+VERITY attack --type injection --target ollama --model llama3.2 --max 10
 
 # Include a custom system prompt
-aegis attack --type injection --system "You are a helpful assistant." --max 5
+VERITY attack --type injection --system "You are a helpful assistant." --max 5
 ```
 
 ### Full Security Audit
 
 ```bash
 # Run complete audit with report generation
-aegis audit --target ollama --model llama3.2 --output ./reports
+VERITY audit --target ollama --model llama3.2 --output ./reports
 
 # Specify report format
-aegis audit --target ollama --model llama3.2 --format html
+VERITY audit --target ollama --model llama3.2 --format html
 
 # Available formats: markdown, html, json
-aegis audit --target openai --model gpt-4o --format json --output ./reports
+VERITY audit --target openai --model gpt-4o --format json --output ./reports
 ```
 
 ### Example Workflow
 
 ```bash
 # 1. Verify providers are working
-aegis providers list
-aegis providers test --provider ollama
+VERITY providers list
+VERITY providers test --provider ollama
 
 # 2. Quick attack test
-aegis attack --type injection --max 3
+VERITY attack --type injection --max 3
 
 # 3. Full audit
-aegis audit --target ollama --model llama3.2 --output ./reports --format markdown
+VERITY audit --target ollama --model llama3.2 --output ./reports --format markdown
 ```
 
 ---
 
 ## REST API
 
-AEGIS provides a full REST API for integration with other systems.
+VERITY provides a full REST API for integration with other systems.
 
 ### Starting the API Server
 
 ```bash
 # Development mode
-uvicorn aegis.api.main:app --reload --port 8000
+uvicorn VERITY.api.main:app --reload --port 8000
 
 # Production mode
-uvicorn aegis.api.main:app --host 0.0.0.0 --port 8000 --workers 4
+uvicorn VERITY.api.main:app --host 0.0.0.0 --port 8000 --workers 4
 ```
 
 API documentation is available at:
@@ -108,7 +108,7 @@ API documentation is available at:
 
 ### Authentication
 
-AEGIS API uses JWT tokens for authentication.
+VERITY API uses JWT tokens for authentication.
 
 ```bash
 # Register a new user
@@ -181,15 +181,15 @@ curl -X GET http://localhost:8000/api/v1/reports/{report_id} \
 
 ## Python SDK
 
-For programmatic access, use the AEGIS Python SDK directly.
+For programmatic access, use the VERITY Python SDK directly.
 
 ### Quick Start
 
 ```python
 import asyncio
-from aegis.core import create_provider
-from aegis.red_team import PromptInjectionAgent
-from aegis.judges import LLMJudge
+from VERITY.core import create_provider
+from VERITY.red_team import PromptInjectionAgent
+from VERITY.judges import LLMJudge
 
 async def main():
     # Create target provider
@@ -217,8 +217,8 @@ asyncio.run(main())
 
 ```python
 import asyncio
-from aegis.core import create_provider
-from aegis.red_team.orchestrator import RedTeamOrchestrator
+from VERITY.core import create_provider
+from VERITY.red_team.orchestrator import RedTeamOrchestrator
 
 async def main():
     # Create target
@@ -244,9 +244,9 @@ asyncio.run(main())
 
 ```python
 import asyncio
-from aegis.core import create_provider, create_judge_provider
-from aegis.red_team.orchestrator import RedTeamOrchestrator
-from aegis.judges import LLMJudge
+from VERITY.core import create_provider, create_judge_provider
+from VERITY.red_team.orchestrator import RedTeamOrchestrator
+from VERITY.judges import LLMJudge
 
 async def main():
     # Run attacks
@@ -270,7 +270,7 @@ asyncio.run(main())
 ### Compliance Checking
 
 ```python
-from aegis.compliance import OWASPMapper, EUAIActChecker
+from VERITY.compliance import OWASPMapper, EUAIActChecker
 
 # After running evaluation...
 owasp = OWASPMapper()
@@ -293,7 +293,7 @@ print(f"EU AI Act Status: {eu_report.overall_status.value}")
 ### Report Generation
 
 ```python
-from aegis.reporting import ReportGenerator, ReportMetadata
+from VERITY.reporting import ReportGenerator, ReportMetadata
 from datetime import datetime
 
 # Generate report
@@ -317,8 +317,8 @@ print(f"Reports saved to: {md_path.parent}")
 
 ```python
 import asyncio
-from aegis.core import create_provider
-from aegis.red_team import MultiTurnJailbreakAgent
+from VERITY.core import create_provider
+from VERITY.red_team import MultiTurnJailbreakAgent
 
 async def main():
     target = create_provider("ollama", model="llama3.2")
@@ -359,7 +359,7 @@ asyncio.run(main())
 
 ## Report Generation
 
-AEGIS generates professional security assessment reports.
+VERITY generates professional security assessment reports.
 
 ### Formats
 

@@ -1,6 +1,6 @@
 # API Reference
 
-Complete REST API documentation for AEGIS.
+Complete REST API documentation for VERITY.
 
 ## Base URL
 
@@ -10,7 +10,7 @@ http://localhost:8000
 
 ## Authentication
 
-AEGIS supports two authentication methods:
+VERITY supports two authentication methods:
 
 ### JWT Bearer Token
 
@@ -50,7 +50,7 @@ API root endpoint.
 **Response:**
 ```json
 {
-  "name": "AEGIS API",
+  "name": "VERITY API",
   "version": "0.1.0",
   "status": "operational",
   "docs": "/docs"

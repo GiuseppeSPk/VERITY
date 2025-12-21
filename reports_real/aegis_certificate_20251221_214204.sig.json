@@ -1,0 +1,14 @@
+{
+  "certificate_id": "bf57248a-4c64-40d6-b1c7-06eaadcaf72a",
+  "content_hash": "dc640f7e5eb96d8d490a608e0766ac9a1a1d127a7c2a7364dc73e33da2e892ab",
+  "timestamp": "2025-12-21T20:42:04.078229",
+  "aegis_version": "1.0.0",
+  "signature_version": "1",
+  "metadata": {
+    "target_system": "ollama",
+    "target_model": "llama3",
+    "assessment_date": "2025-12-21T21:42:04.076403",
+    "asr": 0.23076923076923078,
+    "total_attacks": 13
+  }
+}

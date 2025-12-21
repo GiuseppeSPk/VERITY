@@ -7,8 +7,8 @@ from httpx import AsyncClient, ASGITransport
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
 from sqlalchemy.pool import StaticPool
 
-from aegis.api.main import app
-from aegis.api.database import Base, get_db
+from verity.api.main import app
+from verity.api.database import Base, get_db
 
 # Use in-memory SQLite for tests
 TEST_DATABASE_URL = "sqlite+aiosqlite:///:memory:"

@@ -5,11 +5,11 @@ from datetime import datetime
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from aegis.reporting.report_generator import (
+from verity.reporting.report_generator import (
     ReportGenerator,
     ReportMetadata,
 )
-from aegis.judges.llm_judge import (
+from verity.judges.llm_judge import (
     JudgeVerdict,
     JudgeEvaluation,
     CampaignEvaluation,

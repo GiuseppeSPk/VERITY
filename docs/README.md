@@ -1,20 +1,20 @@
-# AEGIS Documentation
+# VERITY Documentation
 
-Welcome to the AEGIS documentation. This guide will help you get started with the Advanced Ethical Guardian & Intelligence System.
+Welcome to the VERITY documentation. This guide will help you get started with the Verification of Ethics, Resilience & Integrity for Trusted AI.
 
 ## Quick Links
 
 | Document | Description |
 |----------|-------------|
-| [Installation](./INSTALLATION.md) | How to install and configure AEGIS |
+| [Installation](./INSTALLATION.md) | How to install and configure VERITY |
 | [Usage Guide](./USAGE.md) | CLI, API, and SDK usage examples |
 | [API Reference](./API.md) | REST API endpoints documentation |
 | [Attack Catalog](./ATTACKS.md) | Complete list of attack techniques |
 | [Architecture](./ARCHITECTURE.md) | System design and components |
 
-## What is AEGIS?
+## What is VERITY?
 
-AEGIS (Advanced Ethical Guardian & Intelligence System) is a multi-agent LLM Red/Blue Teaming platform designed for:
+VERITY (Verification of Ethics, Resilience & Integrity for Trusted AI) is a multi-agent LLM Red/Blue Teaming platform designed for:
 
 - **Security Researchers**: Test LLM safety measures with state-of-the-art attack techniques
 - **AI Safety Engineers**: Evaluate robustness against prompt injection and jailbreaking
@@ -44,7 +44,7 @@ AEGIS (Advanced Ethical Guardian & Intelligence System) is a multi-agent LLM Red
 ## Getting Started
 
 ```bash
-# Install AEGIS
+# Install VERITY
 pip install -e .
 
 # Configure providers
@@ -52,11 +52,11 @@ cp .env.example .env
 # Edit .env with your API keys
 
 # Test connectivity
-aegis providers list
-aegis providers test --provider ollama
+VERITY providers list
+VERITY providers test --provider ollama
 
 # Run your first attack
-aegis attack --type injection --max 5
+VERITY attack --type injection --max 5
 ```
 
 ## Architecture Overview
@@ -84,8 +84,8 @@ aegis attack --type injection --max 5
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/aegis/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/aegis/discussions)
+- **Issues**: [GitHub Issues](https://github.com/yourusername/VERITY/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/yourusername/VERITY/discussions)
 
 ## License
 
