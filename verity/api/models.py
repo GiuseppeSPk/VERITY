@@ -1,6 +1,6 @@
 """SQLAlchemy database models.
 
-Defines all database tables for VERITY SaaS platform.
+Defines all database tables for VERITY.
 """
 
 from datetime import datetime
@@ -35,12 +35,12 @@ class User(Base):
     email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
     password_hash: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    # Subscription tier: free, starter, pro, enterprise
-    tier: Mapped[str] = mapped_column(String(50), default="free")
+    # User tier
+    tier: Mapped[str] = mapped_column(String(50), default="standard")
 
     # Usage tracking
     attacks_this_month: Mapped[int] = mapped_column(Integer, default=0)
-    attacks_limit: Mapped[int] = mapped_column(Integer, default=100)  # Free tier
+    attacks_limit: Mapped[int] = mapped_column(Integer, default=100)
 
     # Timestamps
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

@@ -5,10 +5,6 @@ Implements various prompt injection techniques:
 - Indirect injection patterns
 - Instruction override
 - Context manipulation
-
-COMMUNITY EDITION: Contains basic demo payloads only.
-For professional use with SOTA attacks (RoleBreaker, FlipAttack, etc.),
-please upgrade to VERITY Pro.
 """
 
 from typing import Any
@@ -21,7 +17,7 @@ from verity.red_team.base_agent import (
     BaseAttackAgent,
 )
 
-# Community Edition - Demo Payloads (15 attacks)
+# Prompt Injection Payloads (15 attacks)
 INJECTION_PAYLOADS = [
     # === Direct Instruction Override ===
     {
@@ -142,10 +138,7 @@ INJECTION_PAYLOADS = [
 
 
 class PromptInjectionAgent(BaseAttackAgent):
-    """Agent for executing prompt injection attacks.
-    
-    This is the Community Edition agent with a limited set of demo payloads.
-    """
+    """Agent for executing prompt injection attacks."""
 
     name = "prompt_injection"
     category = AttackCategory.PROMPT_INJECTION

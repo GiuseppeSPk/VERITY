@@ -43,7 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.1] - 2026-01-02
 
 ### Fixed
-- **License Switch**: Project license set to **AGPL-3.0** (Open Core model) to protect against unauthorized commercial exploitation and ensure contributions are shared back. Update reflected in `README.md`, `pyproject.toml`, `LICENSE`, and `verity/__init__.py`.
+- **License Switch**: Project license set to **AGPL-3.0** to ensure contributions are shared back. Update reflected in `README.md`, `pyproject.toml`, `LICENSE`, and `verity/__init__.py`.
 - **BaseLLMProvider**: Added abstract `close()` method to ensure all providers implement resource cleanup
 - **SystemLeakerAgent**: Now respects `max_attacks` parameter (was previously ignored)
 - **SystemLeakerAgent**: Uses unique attack names per payload instead of hardcoded "system_leak_basic"

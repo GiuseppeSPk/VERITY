@@ -475,13 +475,12 @@ All errors follow this format:
 
 ## Rate Limiting
 
-API requests are rate-limited:
+API requests are rate-limited to ensure fair usage:
 
-| Tier | Requests/minute | Requests/day |
-|------|-----------------|--------------|
-| Free | 10 | 100 |
-| Pro | 60 | 1000 |
-| Enterprise | Unlimited | Unlimited |
+| Limit | Value |
+|-------|-------|
+| Requests per minute | 60 |
+| Requests per day | 1000 |
 
 Rate limit headers:
 ```

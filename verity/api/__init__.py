@@ -1,6 +1,6 @@
 """VERITY REST API.
 
-FastAPI-based REST API for VERITY SaaS platform.
+FastAPI-based REST API for VERITY.
 """
 
 from verity.api.main import app
