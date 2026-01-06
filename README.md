@@ -39,9 +39,10 @@ VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit L
 | **Support** | Community | Email (24h) | Dedicated SLA |
 
 ### 🌟 Why Upgrade?
-- **Unlock SOTA 2025 Attacks**: Access RoleBreaker (87% ASR), FlipAttack (98% ASR), and Deceptive Delight techniques.
-- **Advanced Jailbreaking**: Use multi-turn automated optimization (PAIR, Crescendo) to bypass robust defenses.
-- **Commercial Use**: Use VERITY in closed-source proprietary products without AGPL restrictions.
+- **SOTA 2025 Attacks**: Access PSA (98% ASR), Echo Chamber (90%+ ASR), FlipAttack (98% ASR), and more.
+- **Advanced Jailbreaking**: Multi-turn automated optimization (Crescendo, Deceptive Delight, CCA).
+- **42+ Attack Payloads**: Research-backed techniques from Microsoft, Palo Alto, Oxford.
+- **Commercial Use**: Use VERITY in closed-source products without AGPL restrictions.
 
 👉 **[Get VERITY Pro License](https://verity.ai/pricing)**
 
@@ -50,10 +51,12 @@ VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit L
 ## ✨ Features (Community Edition)
 
 ### 🔴 Red Team Capabilities
-- **Prompt Injection**: Basic instruction override and context manipulation attacks.
-- **Jailbreaking**: Single-turn and basic multi-turn iterative testing.
+- **Prompt Injection**: Instruction override and context manipulation attacks.
+- **Jailbreaking (42 Payloads)**:
+  - **Single-Turn**: FlipAttack, PSA, Policy Puppetry, TokenBreak, Time Bandit, Encoding, Framing.
+  - **Multi-Turn**: Crescendo, Echo Chamber, Deceptive Delight, Skeleton Key, CCA, Bad Likert Judge.
 - **System Leakage**: Detection of system prompt extraction vulnerabilities.
-- **Providers**: Support for Ollama, OpenAI, Anthropic, Google Gemini.
+- **Providers**: Ollama, OpenAI, Anthropic, Google Gemini.
 
 ### 🔵 Blue Team Analysis
 - **LLM-as-Judge**: Automated safety scoring (1-10 scale).
@@ -61,8 +64,8 @@ VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit L
 - **Detailed Reasoning**: Explainable verdicts for each attack.
 
 ### 📊 Compliance & Reporting
-- **OWASP LLM Top 10**: Mapping to key vulnerabilities.
-- **Professional Reports**: Generate comprehensive Markdown and HTML reports.
+- **OWASP LLM Top 10 2025**: Full vulnerability mapping.
+- **Professional Reports**: Markdown, HTML, and PDF export.
 
 ---
 
@@ -72,7 +75,7 @@ VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit L
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/VERITY.git
+git clone https://github.com/GiuseppeSPk/VERITY.git
 cd VERITY
 
 # Create virtual environment
@@ -94,11 +97,22 @@ cp .env.example .env
 # List providers
 verity providers list
 
-# Run prompt injection attacks (Community Edition)
+# Run prompt injection attacks
 verity attack --type injection --max 5
 
 # Run full security audit
-verity audit --target ollama --model llama3.2 --output ./reports
+verity audit --target ollama --model llama3.1:8b --output ./reports
+```
+
+### Testing SOTA Attacks
+
+```bash
+# Run the SOTA attack test suite
+python test_sota_attacks.py --max-attacks 5
+
+# Test specific technique
+python test_sota_attacks.py --technique psa
+python test_sota_attacks.py --technique echo_chamber
 ```
 
 ---
@@ -120,7 +134,7 @@ verity audit --target ollama --model llama3.2 --output ./reports
 **VERITY Community Edition** is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 Creating a closed-source service using this code requires releasing your source code.
 
-For proprietary use, please purchase a **Commercial License**.
+For enterprise features and dedicated support, please contact us for a **Commercial License**.
 
 ---
 

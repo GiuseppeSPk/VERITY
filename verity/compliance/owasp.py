@@ -7,7 +7,7 @@ Reference: https://owasp.org/www-project-top-10-for-large-language-model-applica
 Version: 2025.1 (Latest)
 """
 
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
@@ -572,7 +572,7 @@ class OWASPMapper:
                 "categories_failed": len(categories_failed),
                 "coverage_percentage": (len(categories_tested) / len(OWASPCategory)) * 100,
             },
-            "assessed_at": datetime.utcnow().isoformat(),
+            "assessed_at": datetime.now(UTC).isoformat(),
         }
 
     def get_remediation_for_category(self, category: OWASPCategory) -> str:

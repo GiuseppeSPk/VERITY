@@ -81,3 +81,11 @@ class BaseLLMProvider(ABC):
             return len(response.content) > 0
         except Exception:
             return False
+
+    @abstractmethod
+    async def close(self) -> None:
+        """Close provider resources and connections.
+
+        Must be called when done using the provider to prevent resource leaks.
+        """
+        ...

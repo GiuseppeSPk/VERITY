@@ -7,8 +7,9 @@ VERITY REST API
 - CORS configuration
 """
 
+import traceback
 from contextlib import asynccontextmanager
-from datetime import datetime
+from datetime import UTC, datetime
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +17,13 @@ from fastapi.responses import JSONResponse
 
 from verity import __version__
 from verity.api.routes import attacks, auth, campaigns, health, reports
+from verity.config.logging import get_logger, setup_logging
+from verity.config.settings import get_settings
+
+# Initialize settings and logging
+settings = get_settings()
+logger = setup_logging(level=settings.log_level)
+api_logger = get_logger("api")
 
 
 # Lifespan context manager for startup/shutdown
@@ -23,10 +31,12 @@ from verity.api.routes import attacks, auth, campaigns, health, reports
 async def lifespan(app: FastAPI):
     """Application lifespan handler."""
     # Startup
-    print(f"🚀 VERITY API v{__version__} starting...")
+    api_logger.info(f"VERITY API v{__version__} starting...")
+    api_logger.info(f"Debug mode: {settings.debug}")
+    api_logger.info(f"CORS origins: {settings.cors_origins}")
     yield
     # Shutdown
-    print("👋 VERITY API shutting down...")
+    api_logger.info("VERITY API shutting down...")
 
 
 # Create FastAPI application
@@ -41,14 +51,10 @@ app = FastAPI(
 )
 
 
-# CORS Configuration
+# CORS Configuration - loaded from settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",  # Next.js dev
-        "http://localhost:8000",  # API dev
-        "https://VERITY.example.com",  # Production
-    ],
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -67,14 +73,20 @@ app.include_router(reports.router, prefix="/api/v1/reports", tags=["Reports"])
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
     """Handle unhandled exceptions."""
-    return JSONResponse(
-        status_code=500,
-        content={
-            "error": "internal_server_error",
-            "message": "An unexpected error occurred",
-            "timestamp": datetime.utcnow().isoformat(),
-        },
-    )
+    api_logger.error(f"Unhandled exception: {exc}", exc_info=settings.debug)
+
+    response_content = {
+        "error": "internal_server_error",
+        "message": "An unexpected error occurred",
+        "timestamp": datetime.now(UTC).isoformat(),
+    }
+
+    # Include stack trace in debug mode
+    if settings.debug:
+        response_content["detail"] = str(exc)
+        response_content["traceback"] = traceback.format_exc()
+
+    return JSONResponse(status_code=500, content=response_content)
 
 
 # Root endpoint
@@ -87,3 +99,4 @@ async def root():
         "status": "operational",
         "docs": "/docs",
     }
+

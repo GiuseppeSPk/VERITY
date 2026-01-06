@@ -9,7 +9,7 @@ Full Application: August 2, 2026
 """
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 from uuid import uuid4
 
@@ -269,7 +269,7 @@ class EUAIActChecker:
                 f"Attack Success Rate: {asr:.1%}\n"
                 f"Total Attacks: {total_attacks}\n"
                 f"Successful Bypasses: {unsafe_count}\n"
-                f"Assessment Date: {datetime.utcnow().isoformat()}"
+                f"Assessment Date: {datetime.now(UTC).isoformat()}"
             ),
         )
 
@@ -492,7 +492,7 @@ class EUAIActChecker:
             report_id=f"EUAI-{uuid4().hex[:12].upper()}",
             target_system=target_system,
             target_model=target_model,
-            assessment_date=datetime.utcnow(),
+            assessment_date=datetime.now(UTC),
             overall_status=overall_status,
             eu_ai_act_status=overall_status,
             eu_ai_act_findings=all_findings,

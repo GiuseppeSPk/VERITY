@@ -84,9 +84,9 @@ VERITY attack --type injection --max 5
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/VERITY/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/yourusername/VERITY/discussions)
+- **Issues**: [GitHub Issues](https://github.com/GiuseppeSPk/VERITY/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/GiuseppeSPk/VERITY/discussions)
 
 ## License
 
-MIT License - See [LICENSE](../LICENSE) for details.
+AGPL-3.0 License - See [LICENSE](../LICENSE) for details.

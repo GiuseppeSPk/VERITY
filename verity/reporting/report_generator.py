@@ -10,7 +10,7 @@ import hashlib
 import json
 import uuid
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -123,7 +123,7 @@ class ReportGenerator:
         signature = CertificateSignature(
             certificate_id=cert_id,
             content_hash=content_hash,
-            timestamp=datetime.utcnow(),
+            timestamp=datetime.now(UTC),
         )
         
         # Store for later access (e.g., for registry submission)

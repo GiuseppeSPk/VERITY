@@ -1,10 +1,10 @@
 [project]
 name = "verity"
-version = "0.1.0"
+version = "0.2.2"
 description = "VERITY - Verification of Ethics, Resilience & Integrity for Trusted AI"
 readme = "README.md"
 requires-python = ">=3.12"
-license = { text = "MIT" }
+license = { text = "AGPL-3.0" }
 authors = [
     { name = "Giuseppe Spicchiarello" }
 ]

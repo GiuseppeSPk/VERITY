@@ -48,6 +48,14 @@ class Settings(BaseSettings):
     # Logging
     log_level: str = Field(default="INFO")
 
+    # Debug mode (enables stack traces in error responses)
+    debug: bool = Field(default=False)
+
+    # CORS origins (comma-separated in env var)
+    cors_origins: list[str] = Field(
+        default=["http://localhost:3000", "http://localhost:8000"]
+    )
+
 
 @lru_cache
 def get_settings() -> Settings:

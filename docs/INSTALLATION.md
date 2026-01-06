@@ -25,7 +25,7 @@ This guide covers the complete installation and configuration of VERITY.
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/VERITY.git
+git clone https://github.com/GiuseppeSPk/VERITY.git
 cd VERITY
 ```
 
@@ -206,7 +206,7 @@ python --version
 If you encounter issues:
 
 1. Check the [FAQ](./FAQ.md) (coming soon)
-2. Search [GitHub Issues](https://github.com/yourusername/VERITY/issues)
+2. Search [GitHub Issues](https://github.com/GiuseppeSPk/VERITY/issues)
 3. Open a new issue with:
    - Python version
    - Operating system

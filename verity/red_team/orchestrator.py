@@ -1,7 +1,7 @@
 """Red Team orchestrator for running attack campaigns."""
 
 from dataclasses import dataclass, field
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import Any
 
 from verity.core.providers.base import BaseLLMProvider
@@ -86,7 +86,7 @@ class RedTeamOrchestrator:
         result = CampaignResult(
             target_provider=self.target.provider_name,
             target_model=getattr(self.target, "model", "unknown"),
-            started_at=datetime.utcnow(),
+            started_at=datetime.now(UTC),
         )
 
         # Filter agents if specific types requested
@@ -111,7 +111,7 @@ class RedTeamOrchestrator:
                 elif attack_result.error:
                     result.failed_attacks += 1
 
-        result.completed_at = datetime.utcnow()
+        result.completed_at = datetime.now(UTC)
         return result
 
     async def quick_scan(
