@@ -4,14 +4,14 @@
 
 ### Verification of Ethics, Resilience & Integrity for Trusted AI
 
-**Advanced Red Teaming & Safety Certification for Enterprise LLMs**
+**Open-Source LLM Red Teaming & Safety Certification Platform**
 
 [![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 [![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%203.0-red.svg)](LICENSE)
 [![OWASP](https://img.shields.io/badge/OWASP-LLM%20Top%2010%202025-orange.svg)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
 [![EU AI Act](https://img.shields.io/badge/EU%20AI%20Act-Compliant-blue.svg)](https://artificialintelligenceact.eu/)
 
-[Documentation](./docs/README.md) · [Installation](./docs/INSTALLATION.md) · [Usage](./docs/USAGE.md) · [Commercial License](https://verity.ai/pricing)
+[Documentation](./docs/README.md) · [Installation](./docs/INSTALLATION.md) · [Usage](./docs/USAGE.md) · [Contributing](./CONTRIBUTING.md)
 
 </div>
 
@@ -19,42 +19,17 @@
 
 ## 🚀 About VERITY
 
-VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit Large Language Models (LLMs) against adversarial attacks. It automates the entire safety certification lifecycle: from attack execution to judge evaluation and regulatory compliance reporting.
-
-> **VERITY operates on an Open Core model.**
-> The Community Edition provides essential tools for security researchers, while VERITY Pro offers state-of-the-art (SOTA) attack payloads and enterprise features.
+VERITY is an **open-source** Red Teaming & AI Safety platform designed to audit Large Language Models (LLMs) against adversarial attacks. It automates the entire safety certification lifecycle: from attack execution to judge evaluation and regulatory compliance reporting.
 
 ---
 
-## 💎 Editions & Pricing
-
-| Feature | Community | Pro (€149/mo) | Enterprise |
-|---------|:---------:|:-------------:|:----------:|
-| **License** | AGPL-3.0 | Commercial | Commercial |
-| **Attack Payloads** | 10 (Demo) | 💯 100+ (SOTA) | Custom |
-| **Algorithms** | Basic | Crescendo, PAIR, TAP | Advanced + Custom |
-| **LLM-as-Judge** | ✅ Standard | ✅ Optimized | ✅ Fine-tuned |
-| **Reporting** | Markdown/HTML | + PDF, Whitelabel | + API Integration |
-| **Compliance** | Basic | EU AI Act, OWASP | Custom Frameworks |
-| **Support** | Community | Email (24h) | Dedicated SLA |
-
-### 🌟 Why Upgrade?
-- **SOTA 2025 Attacks**: Access PSA (98% ASR), Echo Chamber (90%+ ASR), FlipAttack (98% ASR), and more.
-- **Advanced Jailbreaking**: Multi-turn automated optimization (Crescendo, Deceptive Delight, CCA).
-- **42+ Attack Payloads**: Research-backed techniques from Microsoft, Palo Alto, Oxford.
-- **Commercial Use**: Use VERITY in closed-source products without AGPL restrictions.
-
-👉 **[Get VERITY Pro License](https://verity.ai/pricing)**
-
----
-
-## ✨ Features (Community Edition)
+## ✨ Features
 
 ### 🔴 Red Team Capabilities
 - **Prompt Injection**: Instruction override and context manipulation attacks.
-- **Jailbreaking (42 Payloads)**:
-  - **Single-Turn**: FlipAttack, PSA, Policy Puppetry, TokenBreak, Time Bandit, Encoding, Framing.
-  - **Multi-Turn**: Crescendo, Echo Chamber, Deceptive Delight, Skeleton Key, CCA, Bad Likert Judge.
+- **Jailbreaking (42+ Payloads)**:
+  - **Single-Turn**: FlipAttack (98% ASR), PSA (97% ASR), Policy Puppetry, TokenBreak, Time Bandit, Encoding, Framing.
+  - **Multi-Turn**: Crescendo, Echo Chamber (90%+ ASR), Deceptive Delight, Skeleton Key, CCA, Bad Likert Judge.
 - **System Leakage**: Detection of system prompt extraction vulnerabilities.
 - **Providers**: Ollama, OpenAI, Anthropic, Google Gemini.
 
@@ -65,7 +40,8 @@ VERITY is an industry-grade Red Teaming & AI Safety platform designed to audit L
 
 ### 📊 Compliance & Reporting
 - **OWASP LLM Top 10 2025**: Full vulnerability mapping.
-- **Professional Reports**: Markdown, HTML, and PDF export.
+- **EU AI Act**: Articles 9, 14, 15 compliance checking.
+- **Professional Reports**: Markdown, HTML, and JSON export.
 
 ---
 
@@ -129,12 +105,15 @@ python test_sota_attacks.py --technique echo_chamber
 
 ---
 
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+
+---
+
 ## 📄 License
 
-**VERITY Community Edition** is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
-Creating a closed-source service using this code requires releasing your source code.
-
-For enterprise features and dedicated support, please contact us for a **Commercial License**.
+VERITY is licensed under the [GNU Affero General Public License v3.0 (AGPL-3.0)](LICENSE).
 
 ---
 
